@@ -1,7 +1,10 @@
 package math;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -35,35 +38,42 @@ public class PrintDivisionDecimal {
         System.out.println("Testing n:" + n + ", d:" + d);
         printRationalDivisitonResult(n, d);
     }
-    
-    public static void printRationalDivisitonResult(int n, int d) {
+
+    private void printRationalDivisitonResult(int n, int d) {
         
-        // before decimal
-        System.out.print(n/d + ".");
+        int beforeDecimal = n / d;
         
-        int rem = n%d, div = -1;
-        List<Integer> remHistory = new LinkedList<>();
-        List<Integer> divHistory = new LinkedList<>();
-        int repeatFrom = 0;
+        int currentRem = n % d;
         
+        List<Integer> afterDecimal = new ArrayList<Integer>();
+        Map<Integer, Integer> remainderToDecimalPlace = new HashMap<Integer, Integer>();
+        int repeatPlace = -1;
+        int i = 0;
         while(true) {
-            rem *= 10;
-            div = rem/d;
-            if(remHistory.contains(rem)) {
-                repeatFrom = remHistory.indexOf(rem);
+            currentRem*=10;
+            int currentVal = currentRem/ d;
+            currentRem = currentRem % d;
+            
+            if(remainderToDecimalPlace.containsKey(currentRem)) {
+                repeatPlace = remainderToDecimalPlace.get(currentRem);
+                break;
+            } else {
+                remainderToDecimalPlace.put(currentRem, i);
+                afterDecimal.add(currentVal);
+            }
+            if(currentRem == 0) {
+                repeatPlace = i;
                 break;
             }
-            remHistory.add(rem);
-            divHistory.add(div);
-            rem = rem%d;
+            i++;
         }
-        for(int current: divHistory) {
-            if(repeatFrom == 0)
-                System.out.print("(");
-            System.out.print(current);
-            repeatFrom--;
+        System.out.print(beforeDecimal + ".");
+        for(int j = 0; j < afterDecimal.size(); j++) {
+            if(j == repeatPlace) System.out.print("(");
+            System.out.print(afterDecimal.get(j));
         }
         System.out.println(")");
     }
+    
 
 }
