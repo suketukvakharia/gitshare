@@ -2,7 +2,6 @@ package design;
 
 import java.util.List;
 
-import datastructures.LinkedList;
 
 
 /**

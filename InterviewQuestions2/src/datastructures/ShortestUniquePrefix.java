@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import datastructures.list.InternalLinkedList;
+
 
 /**
  * http://www.careercup.com/question?id=5106806204399616
@@ -40,7 +42,7 @@ public class ShortestUniquePrefix {
     
     private void printPrefixes(TrieNode<Character> node) {
         
-        List<String> uniquePrefixes = new LinkedList<>();
+        List<String> uniquePrefixes = new InternalLinkedList<>();
         
         for(TrieNode<Character> childNode: node.getNextNodes()) {
             getUniquePrefixes(childNode, uniquePrefixes, "");

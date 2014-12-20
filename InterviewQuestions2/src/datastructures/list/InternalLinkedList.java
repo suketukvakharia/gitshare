@@ -1,15 +1,16 @@
-package datastructures;
+package datastructures.list;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 
-public class LinkedList<T extends Comparable<T>> implements List<T>{
+public class InternalLinkedList<T extends Comparable<T>> implements List<T>{
     int size = 0;
     
     Node<T> head;
@@ -17,15 +18,14 @@ public class LinkedList<T extends Comparable<T>> implements List<T>{
     public static void main(String[] args) {
         System.out.println("Starting out the linkedlist based test.");
         
-        LinkedList<Integer> list = new LinkedList<>();
+        InternalLinkedList<Integer> list = new InternalLinkedList<>();
         list.add(4);
         list.add(5);
         list.add(6);
 
-        
         list.remove(0);
         
-        
+        List<Integer> lists = new ArrayList<Integer>();
         System.out.println("ListSize:" + list.size());
         
         System.out.println("Cotains4:" + list.contains(4));
@@ -75,14 +75,14 @@ public class LinkedList<T extends Comparable<T>> implements List<T>{
     }
     
     private class LinkedListIterator implements Iterator<T> {
-        public LinkedListIterator(Node<T> value, LinkedList<T> parent) {
+        public LinkedListIterator(Node<T> value, InternalLinkedList<T> parent) {
             this.value = value;
             this.parent = parent;
         }
 
         private Node<T> value;
         private Node<T> previous;
-        final LinkedList<T> parent;
+        final InternalLinkedList<T> parent;
         
         @Override
         public boolean hasNext() {
