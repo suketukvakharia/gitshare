@@ -1,11 +1,16 @@
 package datastructures.tree;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
 
 
+
+
+
+import java.util.Set;
 
 import math.GenerateRandom;
 
@@ -52,8 +57,12 @@ public class IntervalTreeTest {
     }
     
     @Test
-    public void testOnRandomDataSet() {
-        List<Interval> intervals = generateRandomIntervals(10);
+    public void testOnRandomDataSet() throws InterruptedException {
+        List<Interval> intervals = generateRandomIntervals(100);
+        
+        Set<Interval> dedupeSet = new HashSet<>(intervals);
+        
+        intervals = new ArrayList<Interval>(dedupeSet);
         
         System.out.println(intervals.toString());
         IntervalTree tree = new IntervalTree();
@@ -75,10 +84,10 @@ public class IntervalTreeTest {
         
         for(Interval currentInterval: allIntervals) {
             
-            if(currentInterval.from < interval.from && currentInterval.to > interval.from) {
+            if(currentInterval.from <= interval.from && currentInterval.to >= interval.from) {
                 toReturn++;
             }
-            else if(currentInterval.from < interval.to && currentInterval.to > interval.to) {
+            else if(currentInterval.from <= interval.to && currentInterval.to >= interval.to) {
                 toReturn++;
             }
             else if(interval.from <= currentInterval.from && interval.to >= currentInterval.to){
@@ -90,7 +99,7 @@ public class IntervalTreeTest {
     }
     
     private List<Interval> generateRandomIntervals(int count) {
-        int upto = 100;
+        int upto = 1000;
         List<Interval> toReturn = new ArrayList<Interval>();
         
         for(int i = 0; i < count; i++) {

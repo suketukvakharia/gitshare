@@ -7,9 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class IntervalTree {
 
-    
+    private static Logger logger = LogManager.getLogger(IntervalTree.class);
+
     private IntervalTreeNode rootNode;
     
     public void addIntervals(List<Interval> toAdd) {
@@ -85,6 +89,8 @@ public class IntervalTree {
         public IntervalTreeNode(int centerPoint, List<Interval> sortedFrom,
                 List<Interval> sortedTo, IntervalTreeNode left,
                 IntervalTreeNode right) {
+            
+            logger.debug("Creating Interval Tree Node. CenterPoint:" + centerPoint + " with intervals:" + sortedFrom);
             this.centerPoint = centerPoint;
             Collections.sort(sortedFrom, new FromComparator());
             Collections.sort(sortedTo, new ToComparator());
@@ -96,23 +102,61 @@ public class IntervalTree {
         }
         
         public int getIntersections(Interval interval) {
-            Set<Interval> intersecting = new HashSet<>();
             
-            if(this.centerPoint <= interval.to){ 
-                int toIndex = Collections.binarySearch(this.sortedTo, interval, new ToComparator());
-                if(toIndex < 0) toIndex = (toIndex + 1) * -1;
-                for(int i = toIndex; i < this.sortedTo.size();i++)
-                    intersecting.add(this.sortedTo.get(i));
+            logger.debug("Getting Intersections for interval:" + interval + " for IntervalTreeNode with center" + this.centerPoint + " from intervals:" + sortedFrom + " and to:" + sortedTo);
+            
+            // if this goes over the center point then it intersects all points from here.
+            if(interval.from <= this.centerPoint && interval.to >= this.centerPoint) {
+                logger.debug("returning:" + this.sortedFrom.size() + " as the number of intersections");
+                return this.sortedFrom.size();
             }
             
-            if(this.centerPoint >= interval.from){ 
+            // if not then see how many intervals actually cross it.
+            
+            Set<Interval> intersecting = new HashSet<>();
+            if(interval.from < this.centerPoint) {
                 int fromIndex = Collections.binarySearch(this.sortedFrom, interval, new FromComparator());
                 if(fromIndex < 0) fromIndex = (fromIndex + 1) * -1;
+                logger.debug("FromIndex from < centerPoint:" + fromIndex);
                 for(int i = 0; i < fromIndex && i < this.sortedFrom.size(); i++) {
                     intersecting.add(this.sortedFrom.get(i));
                 }
+                
+                while(fromIndex >= 0 && fromIndex < this.sortedFrom.size() && this.sortedFrom.get(fromIndex).from == interval.from) {
+                    intersecting.add(this.sortedFrom.get(fromIndex));
+                    fromIndex--;
+                }
+            }
+            else {
+                int fromIndex = Collections.binarySearch(this.sortedTo, new Interval(0, interval.from), new ToComparator());
+                if(fromIndex < 0) fromIndex = (fromIndex + 1) * -1;
+                logger.debug("FromIndex from > centerPoint:" + fromIndex);
+                for(int i = fromIndex; i < this.sortedTo.size(); i++) 
+                    intersecting.add(this.sortedTo.get(i));
             }
             
+            if(interval.to < this.centerPoint) {
+                int fromIndex = Collections.binarySearch(this.sortedFrom, new Interval(interval.to, 0), new FromComparator());
+                if(fromIndex < 0) fromIndex = (fromIndex + 1) * -1;
+                logger.debug("FromIndex to < centerPoint:" + fromIndex);
+                for(int i = 0; i < fromIndex && i < this.sortedFrom.size(); i++) {
+                    intersecting.add(this.sortedFrom.get(i));
+                }
+                
+                while(fromIndex >= 0 && fromIndex < this.sortedFrom.size() && this.sortedFrom.get(fromIndex).from == interval.to) {
+                    intersecting.add(this.sortedFrom.get(fromIndex));
+                    fromIndex--;
+                }
+            }
+            else {
+                int fromIndex = Collections.binarySearch(this.sortedTo, interval, new ToComparator());
+                if(fromIndex < 0) fromIndex = (fromIndex + 1) * -1;
+                logger.debug("FromIndex to > centerPoint:" + fromIndex);
+                for(int i = fromIndex; i < this.sortedTo.size(); i++) 
+                    intersecting.add(this.sortedTo.get(i));
+            }
+            
+            logger.debug("returning:" + intersecting.size() + " as the number of intersections");
             return intersecting.size();
         }
 
