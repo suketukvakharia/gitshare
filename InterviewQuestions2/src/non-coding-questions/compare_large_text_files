@@ -1,0 +1,10 @@
+
+
+Question can be found here: http://www.careercup.com/question?id=5678301561487360
+
+The answer is somewhat subjective.
+
+One approach can be that we can build a frequency map for the words that appear in each of the files that are 900 MB. 
+Match that with the words from hello file.
+The file that has the most matches can be counted the most similar file.
+

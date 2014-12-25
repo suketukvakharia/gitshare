@@ -36,7 +36,7 @@ public class GenerateRandom {
         System.out.println(Arrays.toString(frequency));
     }
     
-    protected int next(int nbits) {
+    public static int next(int nbits) {
         // N.B. Not thread-safe!
         long x = System.nanoTime();
         x ^= (x << 21);
