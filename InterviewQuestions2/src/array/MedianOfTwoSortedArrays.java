@@ -16,7 +16,7 @@ public class MedianOfTwoSortedArrays {
         for(int i = 0; i < c.length; i++) 
             c[i] = rand.nextInt();
         
-        Arrays.sort(c);
+        Arrays.sort(c); 
         
         for(int i = 0, j = 0; i < a.length || j < b.length; ) {
             int randInt = rand.nextInt(2);
