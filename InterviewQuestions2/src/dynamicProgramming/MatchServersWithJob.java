@@ -5,6 +5,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
+/**
+ * http://www.careercup.com/question?id=6282171643854848
+ * @author suketu
+ *
+ */
 public class MatchServersWithJob {
     
     @Test
@@ -55,17 +60,15 @@ public class MatchServersWithJob {
                         canBeScheduledOnServer(serversCapacity, jobs, lookAtServer)) {
                     return true;
                 }
-            }
-            else {
-                if(canBeScheduledOnServer(serversCapacity, jobs, lookAtServer + 1)) {
-                    return true;
-                }
-            }
-            
-            if(jobs[i] == 0) {
+                
                 serversCapacity[lookAtServer] += jobValue;
                 jobs[i] = jobValue;
             }
+        }
+        
+        // if none of these worked then just skip this server all together and try the rest.
+        if(canBeScheduledOnServer(serversCapacity, jobs, lookAtServer + 1)) {
+            return true;
         }
         return false;
     }
