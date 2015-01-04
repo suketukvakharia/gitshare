@@ -11,6 +11,13 @@ public class BinaryTreeUtil {
         else 
             return false;
     }
+    
+    public static <T extends Comparable<T>> int getHeight(ITreeNode<T> node) {
+        if(node == null) return 0;
+        
+        return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getLeft()));
+        
+    }
 
     private static <T extends Comparable<T>> int depthPlusBalanced(ITreeNode<T> root) {
         

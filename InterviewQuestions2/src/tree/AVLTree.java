@@ -55,6 +55,7 @@ public class AVLTree<T extends Comparable<T>> {
         
         if(node.left == null && node.right == null) {
             resetParentLink(node);
+            adjustParents(node.parent);
             node = null; 
             return;
         } else if(node.right != null ){
@@ -78,15 +79,17 @@ public class AVLTree<T extends Comparable<T>> {
         // nextSmallest is effectively out 
         // Adjust all parents of nextSmallest if needed 
         
-        AVLNode toAdjust = toReplaceWith.parent;
-        
-        while(toAdjust != null) {
-            logger.debug("Adjusting node:" + toAdjust);
-            adjustBalance(toAdjust);
-            logger.debug("Done Adjusting node:" + toAdjust);
+        adjustParents(toReplaceWith.parent);
+    }
 
+    private void adjustParents(AVLNode toAdjustNode) {
+        
+        while(toAdjustNode != null) {
+            logger.debug("Adjusting node:" + toAdjustNode);
+            adjustBalance(toAdjustNode);
+            logger.debug("Done Adjusting node:" + toAdjustNode);
             
-            toAdjust = toAdjust.parent;
+            toAdjustNode = toAdjustNode.parent;
         }
     }
 

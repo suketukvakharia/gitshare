@@ -27,7 +27,7 @@ public class AVLTreeTest {
             tree.add(rand.nextInt(90)+10);
         }
         
-        BTreePrinter.printTreeNode(tree.root);
+        BTreePrinter.printTreeNew(tree.root);
         
         System.out.println(BinaryTreeUtil.isBalanced(tree.root));
         
@@ -50,7 +50,7 @@ public class AVLTreeTest {
         }
         
         logger.debug("After Adding All");
-        BTreePrinter.printTreeNode(tree.root);
+        BTreePrinter.printTreeNew(tree.root);
         
         // removing.
         for(int toRemove: usedInts) {
@@ -58,8 +58,10 @@ public class AVLTreeTest {
             tree.remove(toRemove);
             
             logger.debug("After removing:" + toRemove);
-            if(tree.root != null) 
+            if(tree.root != null) {
+                BTreePrinter.printTreeNew(tree.root);
                 BTreePrinter.printTreeNode(tree.root);
+            }
             
             Assert.assertTrue(BinaryTreeUtil.isBalanced(tree.root));
         }
