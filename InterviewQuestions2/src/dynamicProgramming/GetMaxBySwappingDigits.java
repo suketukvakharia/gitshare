@@ -22,26 +22,34 @@ public class GetMaxBySwappingDigits {
         int k = 2;
         
         System.out.println(getMaxBySwappingDigits(arg, 2));
+        System.out.println(getMaxSwappingDigits2(intToArr(arg), 2));
+
         
         arg = 132;
         k = 1;
         System.out.println(getMaxBySwappingDigits(arg, k));
+        System.out.println(getMaxSwappingDigits2(intToArr(arg), k));
         
         arg = 132;
         k = 2;
         System.out.println(getMaxBySwappingDigits(arg, k));
+        System.out.println(getMaxSwappingDigits2(intToArr(arg), k));
         
         arg = 7899;
         k = 2;
         System.out.println(getMaxBySwappingDigits(arg, k));
-        
+        System.out.println(getMaxSwappingDigits2(intToArr(arg), k));
+
         arg = 8799;
         k = 2;
         System.out.println(getMaxBySwappingDigits(arg, k));
+        System.out.println(getMaxSwappingDigits2(intToArr(arg), k));
         
         arg = 87199;
         k = 2;
         System.out.println(getMaxBySwappingDigits(arg, k));
+        System.out.println(getMaxSwappingDigits2(intToArr(arg), k));
+
     }
     
     
@@ -57,15 +65,41 @@ public class GetMaxBySwappingDigits {
         return getMaxBySwappingDigits(argArr, maxSwaps, badPaths, 0);
         
     }
+    
+    private static int getMaxSwappingDigits2(int[] argArr, int maxSwaps) {
+    	return getMaxSwappingDigits2(argArr, maxSwaps, 0, arrToInt(argArr));
+    }
+    
+    private static int getMaxSwappingDigits2(int[] argArr, int maxSwaps, int start, int maxSoFar) {
+		if(maxSwaps == 0) {
+			return arrToInt(argArr) > maxSoFar ? arrToInt(argArr) : maxSoFar;
+		}
+		
+		for(int i = start; i < argArr.length; i++) {
+			for(int j = i+1; j < argArr.length; j++) {
+				// skip if not larger.
+				if(argArr[j] < argArr[i]) continue;
+				
+				// swap update max and reiterate
+				swap(argArr, i, j);
+				int temp = arrToInt(argArr);
+				if(temp > maxSoFar) maxSoFar = temp;
+				maxSoFar = getMaxSwappingDigits2(argArr, maxSwaps-1, i+1, maxSoFar);
+				swap(argArr, i, j);
+			}
+		}
+		return maxSoFar;
+	}
 
-    private static int getMaxBySwappingDigits(int[] argArr, int maxSwaps,
+
+
+	private static int getMaxBySwappingDigits(int[] argArr, int maxSwaps,
             Set<String> visitedPaths, int maxSoFar) {
         
         if(maxSwaps == 0) {
             int curMax = arrToInt(argArr);
             return Math.max(curMax, maxSwaps);
         }
-        
         
         for(int i = 0; i < argArr.length; i++) {
             
