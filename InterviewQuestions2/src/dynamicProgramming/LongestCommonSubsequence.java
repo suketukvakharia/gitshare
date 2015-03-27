@@ -4,7 +4,6 @@ import org.junit.Test;
 
 public class LongestCommonSubsequence {
     
-    
     @Test 
     public void testSuccess() {
         
@@ -37,7 +36,7 @@ public class LongestCommonSubsequence {
         String toReturn = "";
         for(int i = a.length(), j = b.length(); i >0 && j >0; ) {
             
-            int current = grid[j][i], top = grid[j-1][i], left = grid[j][i-1], diag = grid[j-1][i-1];
+            int current = grid[j][i], top = grid[j-1][i], left = grid[j][i-1];
             
             if(top == current) {
                 j--;

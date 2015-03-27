@@ -18,6 +18,7 @@ public class Lavenshtein {
         
         System.out.println(lavenshteinDistance(b, a));
     }
+    
     /**
      * a = sitting
      * b = kitten

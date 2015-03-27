@@ -1,8 +1,8 @@
 package dynamicProgramming;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import junit.framework.Assert;
 
 
 /**
@@ -35,7 +35,15 @@ public class TwoCharSubSequence {
         Assert.assertTrue(this.lcsTwoCharRepeats(a));
     }
     
-    
+    /**
+     * This is a variation of the DP problem of finding the smallest edit distnace.
+     * Instead of having 1 for each edit, we have 1 for each match.
+     * We only match characters after current, thus the j < i!
+     * If we get two matches we have found our sequence.
+     * Backtracking is not implemented here.
+     * @param a
+     * @return
+     */
     public boolean lcsTwoCharRepeats(String a) {
         
         if(a == null || a.isEmpty() || a.length() == 1) return false;
