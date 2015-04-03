@@ -1,6 +1,5 @@
 package dynamicProgramming;
 
-import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -17,7 +16,6 @@ public class NumberOfWaysToGetScore {
 	@Test
 	public void testSuccess() {
 		
-		long current, timeTook;
 		int targetScore = 20;
 		int[] scores = {3, 5, 10};
 		int numberOfWays;
@@ -54,6 +52,7 @@ public class NumberOfWaysToGetScore {
 	 * @param scores
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private int getNumberOfWaysToScoreNaive(int targetScore, int[] scores) {
 		if(targetScore < 0) {
 			return 0;
