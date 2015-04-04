@@ -34,7 +34,7 @@ public class CatalanNumber {
 		catalanNumber = getCatalanDirectly(n);
 		System.out.println(catalanNumber);
 		
-		// Look into recursive solution at a later time if you have some time.
+		// TODO Look into recursive solution at a later time if you have some time.
 	}
 
 	private int getCatalanDirectly(int n) {
