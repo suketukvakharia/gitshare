@@ -4,6 +4,15 @@ package tree;
 public class TreeNode<T extends Comparable<T>> implements ITreeNode<T> {
     ITreeNode<T> left, right;
     T value;
+    
+    public TreeNode(T value) {
+    	this.value = value;
+    }
+    
+    public TreeNode() {
+    	
+    }
+    
     @Override
     public ITreeNode<T> getLeft() {
         return this.left;
