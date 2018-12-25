@@ -27,8 +27,6 @@ public class QuickSort {
             }
         
         System.out.println("good run");
-        
-        
     }
 
     private static void quickSort(int[] arr) {

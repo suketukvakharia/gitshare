@@ -8,10 +8,6 @@ import java.util.Queue;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
-
-
-
 /**
  * http://www.careercup.com/page?pid=google-interview-questions
  * @author suketu
@@ -19,7 +15,6 @@ import com.sun.jmx.remote.internal.ArrayQueue;
  */
 public class Throttler {
 
-    
     @Test
     public void testTPS1() {
         
@@ -42,8 +37,6 @@ public class Throttler {
         // create class with one TPS
         Throttler throttler = new Throttler();
         throttler.setQPS(n);
-        
-        Date startTime = Calendar.getInstance().getTime();
         
         // expect success
         for(int i = 0; i < n; i++)
