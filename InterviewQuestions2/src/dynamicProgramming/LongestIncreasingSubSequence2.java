@@ -23,7 +23,6 @@ public class LongestIncreasingSubSequence2 {
     }
 
     private int[] findLongestIncreasingSubSeq(int[] arg) {
-
         // sequence keeper
         int[] longestSubsequence = new int[arg.length];
         int[] previousPointers = new int[arg.length];
