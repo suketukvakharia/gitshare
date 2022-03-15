@@ -6,6 +6,8 @@ package permutations;
  */
 public class BalanceParanthesis {
 
+    // (()
+
     public boolean isBalanced(String str) {
         if (str == null || str.isEmpty()) {
             return true;
